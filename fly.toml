@@ -6,6 +6,10 @@
 app = 'fly-sqlite-node'
 primary_region = 'ams'
 
+[mounts]
+  source = "data"
+  destination = "/data"
+
 [build]
 
 [http_service]
