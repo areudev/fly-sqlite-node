@@ -28,9 +28,20 @@ async function parseFormBody(req: http.IncomingMessage) {
 
 const server = http
   .createServer(async (req, res) => {
-    console.log(`${req.method} ${req.url}`)
+    console.log(`YO ${req.method} ${req.url}`)
 
     switch (`${req.method} ${req.url}`) {
+      case 'GET /healthcheck': {
+        try {
+          await getCurrentCount()
+          res.writeHead(200)
+          res.end('OK')
+        } catch (error) {
+          console.error(error)
+          res.writeHead(500)
+          return res.end('ERROR')
+        }
+      }
       case 'POST /': {
         const params = await parseFormBody(req)
         const intent = params.get('intent')
